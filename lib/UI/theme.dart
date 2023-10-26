@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 const Color bluishColor = Colors.cyan;
 const Color pinkishColor = Colors.pink;
 const Color darkGreyColor = Color(0xFF121212);
+const Color primaryColour = Colors.purple;
+const Color primaryColour2 = Colors.pink;
 
 
 class Themes {
