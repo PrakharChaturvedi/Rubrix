@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import
 
+import 'dart:ui';
+
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,63 +37,83 @@ class _HomePageState extends State<HomePage> {
     // DateTime now = DateTime.now();
     // String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: [
           Container(
-            margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                const Center(
-                  child: Text("WHO IS GONNA CARRY THE LOG!",
-                  style: TextStyle(
-                    // color: Get.isDarkMode ? Colors.white : Colors.black54,
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                  ),
+            width: MediaQuery.of(context).size.width,
+            height: 180,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage('images/night_banner.png'),
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4),
+                  BlendMode.darken,
                 ),
-                ),
-
-                Center(
-                  child: DatePicker(
-                    DateTime.now(),
-                    height: 100,
-                    width: 75,
-                    initialSelectedDate: DateTime.now(),
-                    deactivatedColor: Colors.deepPurpleAccent,
-
-                    dateTextStyle: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                    ),
-
-                    dayTextStyle: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                    ),
-
-                    selectedTextColor: Colors.white,
-                    selectionColor: Colors.cyan,
-                  ),
-                ),
-
-                const Center(
-                    child: Text("Today's Tasks")
-                ),
-
-                const Center(
-                  child: Image(
-                    // image: AssetImage('images/night_banner.png'),
-                    // image: AssetImage('images/night_banner.png'),
-                    image: AssetImage('images/evening_banner.png'),
-                  ),
-                )
-              ],
+                fit: BoxFit.cover,
+              ),
             ),
+          ),
+          Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Center(
+                      child: Text(
+                        "Who is gonna carry the log!",
+                        style: TextStyle(
+                          fontStyle: FontStyle.normal,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+
+                    Center(
+                      child: DatePicker(
+                        DateTime.now(),
+                        height: 125,
+                        width: 72.5,
+                        initialSelectedDate: DateTime.now(),
+                        dateTextStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                        ),
+
+                        dayTextStyle: const TextStyle(
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                        monthTextStyle: const TextStyle(
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 0,
+                        ),
+                        selectedTextColor: Colors.white,
+                        selectionColor: Colors.tealAccent.withOpacity(0.6),
+
+                      ),
+                    ),
+                  ],
+                  // Container(
+                  //   child: const Center(
+                  //     child: Text(
+                  //       "Today's Tasks",
+                  //       style: TextStyle(
+                  //         fontStyle: FontStyle.normal,
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: 28,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
-      //BottomAppBar for mode changes and task Additions
       bottomNavigationBar: _appBar(),
     );
   }
@@ -111,6 +133,7 @@ class _HomePageState extends State<HomePage> {
                 ThemeService().switchTheme();
               },
             ),
+
             Text(
               "Rubrix",
               style: TextStyle(
@@ -120,6 +143,7 @@ class _HomePageState extends State<HomePage> {
                 fontSize: 35,
               ),
             ),
+
             FloatingActionButton.extended(
               elevation: 4.0,
               icon: const Icon(Icons.add_circle_outline_rounded),
