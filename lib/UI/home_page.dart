@@ -1,6 +1,5 @@
 // ignore_for_file: unused_import
 
-import 'dart:ui';
 
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +20,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
+  late String currentImage;
 
   @override
   void initState() {
     super.initState();
+    currentImage = _getImageForTime(DateTime.now().hour);
   }
 
+
+  String _getImageForTime(int hour) {
+    if (hour >= 0 && hour < 6) {
+      return 'images/night_banner.png'; // Night image
+    } else if (hour < 12) {
+      return 'images/morning_banner.png'; // Morning image
+    } else if (hour < 18) {
+      return 'images/afternoon_banner.png'; // Afternoon image
+    } else {
+      return 'images/evening_banner.png'; // Evening image
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +56,9 @@ class _HomePageState extends State<HomePage> {
             height: 180,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: const AssetImage('images/night_banner.png'),
+
+                image: AssetImage(currentImage),
+
                 colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4),
                   BlendMode.darken,
@@ -53,6 +67,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
           Column(
             children: [
               Container(
@@ -96,6 +111,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ],
+
                   // Container(
                   //   child: const Center(
                   //     child: Text(
