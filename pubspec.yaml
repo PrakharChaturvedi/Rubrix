@@ -73,6 +73,7 @@ flutter:
     - images/morning_banner.png
     - images/night_banner.png
 
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

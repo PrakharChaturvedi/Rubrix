@@ -1,10 +1,10 @@
-// ignore_for_file: unused_import
-
-
+// ignore_for_file: unused_import, library_private_types_in_public_api, avoid_unnecessary_containers, unused_local_variable
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:rubrics/UI/timeLine_page.dart';
 import 'package:rubrics/UI/widgets/button.dart';
 import 'package:rubrics/UI/theme.dart';
 import 'package:rubrics/services/theme_services.dart';
@@ -25,108 +25,136 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    currentImage = _getImageForTime(DateTime.now().hour);
-  }
-
-
-  String _getImageForTime(int hour) {
-    if (hour >= 0 && hour < 6) {
-      return 'images/night_banner.png'; // Night image
-    } else if (hour < 12) {
-      return 'images/morning_banner.png'; // Morning image
-    } else if (hour < 18) {
-      return 'images/afternoon_banner.png'; // Afternoon image
-    } else {
-      return 'images/evening_banner.png'; // Evening image
-    }
+    // currentImage = _getImageForTime(DateTime.now().hour);
   }
 
   @override
   Widget build(BuildContext context) {
+    final String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom]);
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final outlineColor = isDarkMode ? Colors.white : Colors.black;
 
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
-
-    // DateTime now = DateTime.now();
-    // String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: [
+          // Container(
+          //  child: Image.asset("images/evening_banner.png"),
+          // ),
+
           Container(
-            width: MediaQuery.of(context).size.width,
-            height: 180,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-
-                image: AssetImage(currentImage),
-
-                colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.4),
-                  BlendMode.darken,
-                ),
-                fit: BoxFit.cover,
+            alignment: Alignment.topLeft,
+            padding: const EdgeInsets.all(16.0),
+            child: const Text(
+              "Welcome, Prakhar",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'RobotoMono',
               ),
             ),
           ),
 
-          Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Center(
-                      child: Text(
-                        "Who is gonna carry the log!",
-                        style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-
-                    Center(
-                      child: DatePicker(
-                        DateTime.now(),
-                        height: 125,
-                        width: 72.5,
-                        initialSelectedDate: DateTime.now(),
-                        dateTextStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                        ),
-
-                        dayTextStyle: const TextStyle(
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                        monthTextStyle: const TextStyle(
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 0,
-                        ),
-                        selectedTextColor: Colors.white,
-                        selectionColor: Colors.tealAccent.withOpacity(0.6),
-
-                      ),
-                    ),
-                  ],
-
-                  // Container(
-                  //   child: const Center(
-                  //     child: Text(
-                  //       "Today's Tasks",
-                  //       style: TextStyle(
-                  //         fontStyle: FontStyle.normal,
-                  //         fontWeight: FontWeight.bold,
-                  //         fontSize: 28,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width - 25,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: outlineColor,
+                  width: 2.0,
                 ),
+                borderRadius: BorderRadius.circular(10),
               ),
-            ],
+              child: DatePicker(
+                DateTime.now(),
+                height: 80,
+                width: 70,
+                initialSelectedDate: DateTime.now(),
+                dateTextStyle: const TextStyle(
+                  fontSize: 22,
+                ),
+                dayTextStyle: const TextStyle(
+                  fontSize: 12,
+                ),
+                monthTextStyle: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+                selectedTextColor: Colors.white,
+                selectionColor: Colors.deepPurpleAccent,
+                deactivatedColor: Colors.white38,
+              ),
+            ),
+          ),
+
+          Container(
+            alignment: Alignment.topLeft,
+            padding: const EdgeInsets.all(16.0),
+            child: const Text(
+              // currentDate,
+              "Today's tasks",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+
+          Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height - 285,
+              width: MediaQuery.of(context).size.width - 25,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: outlineColor,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // Align items with space in between
+                children: [
+                  const Text("hello"),
+                  // Bottom Bar for timeline visits!
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 2.0,
+                        color: outlineColor,
+                      ),
+                      Container(
+                        color: Colors.deepPurpleAccent,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              child: const Text(
+                                "Go to Time Line",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 28,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: IconButton(
+                                icon: const Icon(Icons.navigate_next_rounded),
+                                onPressed: () {
+                                  // ThemeService().switchTheme();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -134,47 +162,35 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _appBar() {
+  BottomAppBar _appBar() {
     return BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: Icon(
-                Get.isDarkMode ? Icons.sunny : Icons.nights_stay_rounded,
-                size: 20,
-                color: Get.isDarkMode ? Colors.white : Colors.black54,
-              ),
-              onPressed: () {
-                ThemeService().switchTheme();
-              },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.sunny),
+            onPressed: () {
+              ThemeService().switchTheme();
+            },
+          ),
+          const Text(
+            "Rubrix",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 28,
             ),
-
-            Text(
-              "Rubrix",
-              style: TextStyle(
-                color: Get.isDarkMode ? Colors.white : Colors.black54,
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.bold,
-                fontSize: 35,
-              ),
-            ),
-
-            FloatingActionButton.extended(
-              elevation: 4.0,
-              icon: const Icon(Icons.add_circle_outline_rounded),
-              label: const Text('Add a task',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-              ),
-              onPressed: () {
-                ThemeService().switchTheme();
-              },
-            ),
-          ],
-        ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.ac_unit_rounded),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const timeLine_Page()));
+            },
+          ),
+        ],
+      ),
     );
   }
 }
